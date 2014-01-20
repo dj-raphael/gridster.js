@@ -197,6 +197,18 @@
         return this;
     };
 
+    /**
+    * Show a hided widget on the grid.
+    *
+    * @method hide_widget
+    * @param {HTMLElement} element of the widget
+    * @return {HTMLElement} Returns the jQuery wrapped HTMLElement representing.
+    *  the widget that was just created.
+    */
+    fn.show_widget = function(el) {
+        this.add_widget(el);
+        return this;
+    }
 
     /**
     * Add a new widget to the grid.
@@ -228,12 +240,16 @@
             this.empty_cells(col, row, size_x, size_y);
         }
 
-        var $w = $(html).attr({
+        if (html instanceof jQuery)  {
+            var $w = html;
+        } else {
+            var $w = $(html).attr({
                 'data-col': pos.col,
                 'data-row': pos.row,
                 'data-sizex' : size_x,
                 'data-sizey' : size_y
             }).addClass('gs-w').appendTo(this.$el).hide();
+        }
 
         this.$widgets = this.$widgets.add($w);
 
@@ -568,6 +584,22 @@
 
 
     /**
+    * Hide widget from the grid.
+    *
+    * @method hide_widget
+    * @param {HTMLElement} el The jQuery wrapped HTMLElement you want to hide.
+    * @param {Boolean|Function} silent If true, widgets below the removed one
+    * will not move up. If a Function is passed it will be used as callback.
+    * @param {Function} callback Function executed when the widget is hided.
+    * @return {Class} Returns the instance of the Gridster Class.
+    */
+    fn.hide_widget = function(el, silent, callback) {
+        this.remove_widget(el, silent, callback, true);
+
+        return this;
+    };
+
+    /**
     * Remove a widget from the grid.
     *
     * @method remove_widget
@@ -577,7 +609,7 @@
     * @param {Function} callback Function executed when the widget is removed.
     * @return {Class} Returns the instance of the Gridster Class.
     */
-    fn.remove_widget = function(el, silent, callback) {
+    fn.remove_widget = function(el, silent, callback, hide) {
         var $el = el instanceof jQuery ? el : $(el);
         var wgd = $el.coords().grid;
 
@@ -595,7 +627,11 @@
         this.remove_from_gridmap(wgd);
 
         $el.fadeOut($.proxy(function() {
-            $el.remove();
+            if (hide) {
+                $el.hide();
+            } else {
+                $el.remove();
+            }
 
             if (!silent) {
                 $nexts.each($.proxy(function(i, widget) {
