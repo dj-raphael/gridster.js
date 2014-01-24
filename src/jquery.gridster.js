@@ -113,8 +113,8 @@
         this.options = $.extend(true, defaults, options);
         this.$el = $(el);
         this.$wrapper = this.$el.parent();
-        this.$widgets = this.$el.children(
-            this.options.widget_selector).addClass('gs-w');
+        this.$widgets = this.$el.children(this.options.widget_selector).not('[data-ishidden=true]').addClass('gs-w');
+        
         this.widgets = [];
         this.$changed = $([]);
         this.wrapper_width = this.$wrapper.width();
@@ -206,7 +206,8 @@
     *  the widget that was just created.
     */
     fn.show_widget = function(el) {
-        this.add_widget(el);
+        var $el = $(el);
+        this.add_widget(el, $el.attr('data-sizex'), $el.attr('data-sizey'), $el.attr('data-col'), $el.attr('data-row'));
         return this;
     }
 
