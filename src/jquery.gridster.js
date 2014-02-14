@@ -198,41 +198,41 @@
     };
 
     /**
-    * Show a hided widget on the grid.
-    *
-    * @method hide_widget
-    * @param {HTMLElement} element of the widget
-    * @return {HTMLElement} Returns the jQuery wrapped HTMLElement representing.
-    *  the widget that was just created.
-    */
-    fn.show_widget = function(el) {
+     * Show a hided widget on the grid.
+     *
+     * @method hide_widget
+     * @param {HTMLElement} element of the widget
+     * @return {HTMLElement} Returns the jQuery wrapped HTMLElement representing.
+     *  the widget that was just created.
+     */
+    fn.show_widget = function (el) {
         var $el = $(el);
-        this.add_widget(el, $el.attr('data-sizex'), $el.attr('data-sizey'), $el.attr('data-col'), $el.attr('data-row'));
+        this.add_widget(el, $el.attr('data-sizex'), $el.attr('data-sizey'), $el.attr('data-col'), $el.attr('data-row'), $el.attr('data-max-size'), true);
         return this;
     }
 
     /**
-    * Add a new widget to the grid.
-    *
-    * @method add_widget
-    * @param {String|HTMLElement} html The string representing the HTML of the widget
-    *  or the HTMLElement.
-    * @param {Number} [size_x] The nº of rows the widget occupies horizontally.
-    * @param {Number} [size_y] The nº of columns the widget occupies vertically.
-    * @param {Number} [col] The column the widget should start in.
-    * @param {Number} [row] The row the widget should start in.
-    * @param {Array} [max_size] max_size Maximun size (in units) for width and height.
-    * @return {HTMLElement} Returns the jQuery wrapped HTMLElement representing.
-    *  the widget that was just created.
-    */
-    fn.add_widget = function(html, size_x, size_y, col, row, max_size) {
+     * Add a new widget to the grid.
+     *
+     * @method add_widget
+     * @param {String|HTMLElement} html The string representing the HTML of the widget
+     *  or the HTMLElement.
+     * @param {Number} [size_x] The nº of rows the widget occupies horizontally.
+     * @param {Number} [size_y] The nº of columns the widget occupies vertically.
+     * @param {Number} [col] The column the widget should start in.
+     * @param {Number} [row] The row the widget should start in.
+     * @param {Array} [max_size] max_size Maximun size (in units) for width and height.
+     * @return {HTMLElement} Returns the jQuery wrapped HTMLElement representing.
+     *  the widget that was just created.
+     */
+    fn.add_widget = function (html, size_x, size_y, col, row, max_size, show) {
         var pos;
         size_x || (size_x = 1);
         size_y || (size_y = 1);
 
         if (!col & !row) {
             pos = this.next_position(size_x, size_y);
-        }else{
+        } else {
             pos = {
                 col: col,
                 row: row
@@ -241,15 +241,16 @@
             this.empty_cells(col, row, size_x, size_y);
         }
 
-        if (html instanceof jQuery)  {
-            var $w = html;
+        var $w = $(html).attr({
+            'data-col': pos.col,
+            'data-row': pos.row,
+            'data-sizex': size_x,
+            'data-sizey': size_y
+        }).addClass('gs-w');
+        if (show) {
+            $w.attr('data-ishidden', true);
         } else {
-            var $w = $(html).attr({
-                'data-col': pos.col,
-                'data-row': pos.row,
-                'data-sizex' : size_x,
-                'data-sizey' : size_y
-            }).addClass('gs-w').appendTo(this.$el).hide();
+            $w.appendTo(this.$el).hide();
         }
 
         this.$widgets = this.$widgets.add($w);
@@ -265,9 +266,13 @@
 
         this.set_dom_grid_height();
 
-        return $w.fadeIn();
+        if (show) {
+            $w.show();
+        } else {
+            $w.fadeIn();
+        }
+        return $w;
     };
-
 
     /**
     * Change widget size limits.
@@ -585,32 +590,32 @@
 
 
     /**
-    * Hide widget from the grid.
-    *
-    * @method hide_widget
-    * @param {HTMLElement} el The jQuery wrapped HTMLElement you want to hide.
-    * @param {Boolean|Function} silent If true, widgets below the removed one
-    * will not move up. If a Function is passed it will be used as callback.
-    * @param {Function} callback Function executed when the widget is hided.
-    * @return {Class} Returns the instance of the Gridster Class.
-    */
-    fn.hide_widget = function(el, silent, callback) {
+     * Hide widget from the grid.
+     *
+     * @method hide_widget
+     * @param {HTMLElement} el The jQuery wrapped HTMLElement you want to hide.
+     * @param {Boolean|Function} silent If true, widgets below the removed one
+     * will not move up. If a Function is passed it will be used as callback.
+     * @param {Function} callback Function executed when the widget is hided.
+     * @return {Class} Returns the instance of the Gridster Class.
+     */
+    fn.hide_widget = function (el, silent, callback) {
         this.remove_widget(el, silent, callback, true);
 
         return this;
     };
 
     /**
-    * Remove a widget from the grid.
-    *
-    * @method remove_widget
-    * @param {HTMLElement} el The jQuery wrapped HTMLElement you want to remove.
-    * @param {Boolean|Function} silent If true, widgets below the removed one
-    * will not move up. If a Function is passed it will be used as callback.
-    * @param {Function} callback Function executed when the widget is removed.
-    * @return {Class} Returns the instance of the Gridster Class.
-    */
-    fn.remove_widget = function(el, silent, callback, hide) {
+     * Remove a widget from the grid.
+     *
+     * @method remove_widget
+     * @param {HTMLElement} el The jQuery wrapped HTMLElement you want to remove.
+     * @param {Boolean|Function} silent If true, widgets below the removed one
+     * will not move up. If a Function is passed it will be used as callback.
+     * @param {Function} callback Function executed when the widget is removed.
+     * @return {Class} Returns the instance of the Gridster Class.
+     */
+    fn.remove_widget = function (el, silent, callback, hide) {
         var $el = el instanceof jQuery ? el : $(el);
         var wgd = $el.coords().grid;
 
@@ -626,8 +631,7 @@
         var $nexts = this.widgets_below($el);
 
         this.remove_from_gridmap(wgd);
-
-        $el.fadeOut($.proxy(function() {
+        var finish = $.proxy(function () {
             if (hide) {
                 $el.hide();
             } else {
@@ -635,8 +639,8 @@
             }
 
             if (!silent) {
-                $nexts.each($.proxy(function(i, widget) {
-                    this.move_widget_up( $(widget), wgd.size_y );
+                $nexts.each($.proxy(function (i, widget) {
+                    this.move_widget_up($(widget), wgd.size_y);
                 }, this));
             }
 
@@ -645,11 +649,14 @@
             if (callback) {
                 callback.call(this, el);
             }
-        }, this));
-
+        }, this);
+        if (hide) {
+            finish();
+        } else {
+            $el.fadeOut(finish);
+        }
         return this;
     };
-
 
     /**
     * Remove all widgets from the grid.
@@ -852,6 +859,7 @@
     fn.resizable = function() {
         this.resize_api = this.$el.drag({
             items: '.' + this.options.resize.handle_class,
+            handle: '.' + this.options.resize.handle_class,
             offset_left: this.options.widget_margins[0],
             container_width: this.container_width,
             move_element: false,
