@@ -1,4 +1,4 @@
-/*! gridster.js - v0.2.1 - 2014-02-13
+/*! gridster.js - v0.2.1 - 2014-02-14
 * http://gridster.net/
 * Copyright (c) 2014 ducksboard; Licensed MIT */
 
@@ -3420,6 +3420,18 @@
             styles += (opts.namespace + ' [data-sizex="' + x + '"] { width:' +
                 (x * opts.widget_base_dimensions[0] +
                 (x - 1) * (opts.widget_margins[0] * 2)) + 'px; }\n');
+        }
+
+        /* generate CSS styles for bootstrap */
+        for (var x = 2; x <= max_size_x; x++) {
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-100 { width:100%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-83 { width:83.333333333333333%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-75 { width:75%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-66 { width:66.666666666666666%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-50 { width:50%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-33 { width:33.333333333333333%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-25 { width:25%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-16 { width:16.666666666666666%; }\n');
         }
 
         return this.add_style_tag(styles);

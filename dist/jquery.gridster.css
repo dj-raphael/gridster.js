@@ -1,4 +1,4 @@
-/*! gridster.js - v0.2.1 - 2014-02-13
+/*! gridster.js - v0.2.1 - 2014-02-14
 * http://gridster.net/
 * Copyright (c) 2014 ducksboard; Licensed MIT */
 
@@ -119,3 +119,81 @@
   opacity:0;
 }
 */
+
+/* begin Gridster Bootstrap */
+[data-sizex] .row {
+    margin-right:-5px;
+    margin-left:-5px
+}
+[data-sizex] .row:before,
+[data-sizex] .row:after{
+    display:table;
+    content:" "
+}
+[data-sizex] .row:after{
+    clear:both
+}
+
+[data-sizex] [class^="col-"] {
+    float: left;
+    padding-right: 5px;
+    padding-left: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+[data-sizex] .pull-right {
+    float:right;
+}
+
+[data-sizex] .col-100 {
+    width:100%;
+}
+[data-sizex] .col-83 {
+    width:83.33333333333333333%;
+}
+[data-sizex] .col-75 {
+    width:75%;
+}
+[data-sizex] .col-66 {
+    width:66.6666666666666666%;
+}
+[data-sizex] .col-50 {
+    width:50%;
+}
+[data-sizex] .col-33 {
+    width:33.3333333333333333%;
+}
+[data-sizex] .col-25 {
+    width:25%;
+}
+[data-sizex] .col-16 {
+    width:16.66666666666666666%;
+}
+
+[data-sizex="1"] .col-1-100{
+    width:100%;
+}
+[data-sizex="1"] .col-1-83 {
+    width:83.33333333333333333%;
+}
+[data-sizex="1"] .col-1-75{
+    width:75%;
+}
+[data-sizex="1"] .col-1-66{
+    width:66.6666666666666666%;
+}
+[data-sizex="1"] .col-1-50{
+    width:50%;
+}
+[data-sizex="1"] .col-1-33{
+    width:33.3333333333333333%;
+}
+[data-sizex="1"] .col-1-25{
+    width:25%;
+}
+[data-sizex="1"] .col-1-16{
+    width:16.6666666666666666%;
+}
+
+/* end Gridster Bootstrap */
