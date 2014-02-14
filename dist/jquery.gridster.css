@@ -1,6 +1,6 @@
-/*! gridster.js - v0.2.1 - 2013-10-28
+/*! gridster.js - v0.2.1 - 2014-02-13
 * http://gridster.net/
-* Copyright (c) 2013 ducksboard; Licensed MIT */
+* Copyright (c) 2014 ducksboard; Licensed MIT */
 
 .gridster {
     position:relative;
@@ -119,7 +119,3 @@
   opacity:0;
 }
 */
-
-[data-ishidden=true] {
-    display:none;
-}
