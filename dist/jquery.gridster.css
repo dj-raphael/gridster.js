@@ -195,5 +195,9 @@
 [data-sizex="1"] .col-1-16{
     width:16.6666666666666666%;
 }
+[data-sizex="1"] .col-1-hidden {
+    display: none;
+}
+
 
 /* end Gridster Bootstrap */

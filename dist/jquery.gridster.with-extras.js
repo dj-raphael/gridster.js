@@ -833,6 +833,7 @@
         this.$el = $(el);
         this.$wrapper = this.$el.parent();
         this.$widgets = this.$el.children(this.options.widget_selector).not('[data-ishidden=true]').addClass('gs-w');
+        this.$el.children(this.options.widget_selector).filter('[data-ishidden=true]').hide();
         
         this.widgets = [];
         this.$changed = $([]);
@@ -3432,6 +3433,7 @@
             styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-33 { width:33.333333333333333%; }\n');
             styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-25 { width:25%; }\n');
             styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-16 { width:16.666666666666666%; }\n');
+            styles += (opts.namespace + ' [data-sizex="' + x + '"] .col-' + x + '-hidden { display:none; }\n');
         }
 
         return this.add_style_tag(styles);
