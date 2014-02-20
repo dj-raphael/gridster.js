@@ -114,17 +114,20 @@
     fn.manage_colliders_start_stop = function(new_colliders_coords, start_callback, stop_callback){
         var last = this.last_colliders_coords;
 
-        for (var i = 0, il = last.length; i < il; i++) {
-            if ($.inArray(last[i], new_colliders_coords) === -1) {
-                start_callback.call(this, last[i]);
+        if (typeof(start_callback) == "function") {
+            for (var i = 0, il = last.length; i < il; i++) {
+                if ($.inArray(last[i], new_colliders_coords) === -1) {
+                    start_callback.call(this, last[i]);
+                }
             }
         }
 
-        for (var j = 0, jl = new_colliders_coords.length; j < jl; j++) {
-            if ($.inArray(new_colliders_coords[j], last) === -1) {
-                stop_callback.call(this, new_colliders_coords[j]);
+        if (typeof(start_callback) == "function") {
+            for (var j = 0, jl = new_colliders_coords.length; j < jl; j++) {
+                if ($.inArray(new_colliders_coords[j], last) === -1) {
+                    stop_callback.call(this, new_colliders_coords[j]);
+                }
             }
-
         }
     };
 

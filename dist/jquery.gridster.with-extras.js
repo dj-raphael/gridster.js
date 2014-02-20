@@ -1,4 +1,4 @@
-/*! gridster.js - v0.2.1 - 2014-02-14
+/*! gridster.js - v0.2.1 - 2014-02-19
 * http://gridster.net/
 * Copyright (c) 2014 ducksboard; Licensed MIT */
 
@@ -211,17 +211,20 @@
     fn.manage_colliders_start_stop = function(new_colliders_coords, start_callback, stop_callback){
         var last = this.last_colliders_coords;
 
-        for (var i = 0, il = last.length; i < il; i++) {
-            if ($.inArray(last[i], new_colliders_coords) === -1) {
-                start_callback.call(this, last[i]);
+        if (typeof(start_callback) == "function") {
+            for (var i = 0, il = last.length; i < il; i++) {
+                if ($.inArray(last[i], new_colliders_coords) === -1) {
+                    start_callback.call(this, last[i]);
+                }
             }
         }
 
-        for (var j = 0, jl = new_colliders_coords.length; j < jl; j++) {
-            if ($.inArray(new_colliders_coords[j], last) === -1) {
-                stop_callback.call(this, new_colliders_coords[j]);
+        if (typeof(start_callback) == "function") {
+            for (var j = 0, jl = new_colliders_coords.length; j < jl; j++) {
+                if ($.inArray(new_colliders_coords[j], last) === -1) {
+                    stop_callback.call(this, new_colliders_coords[j]);
+                }
             }
-
         }
     };
 
@@ -927,7 +930,7 @@
      */
     fn.show_widget = function (el) {
         var $el = $(el);
-        this.add_widget(el, $el.attr('data-sizex'), $el.attr('data-sizey'), $el.attr('data-col'), $el.attr('data-row'), $el.attr('data-max-size'), true);
+        if ($el.attr('data-ishidden') == 'true') this.add_widget(el, $el.attr('data-sizex'), $el.attr('data-sizey'), $el.attr('data-col'), $el.attr('data-row'), $el.attr('data-max-size'), true);
         return this;
     }
 
@@ -968,7 +971,7 @@
             'data-sizey': size_y
         }).addClass('gs-w');
         if (show) {
-            $w.attr('data-ishidden', true);
+            $w.attr('data-ishidden', false);
         } else {
             $w.appendTo(this.$el).hide();
         }
@@ -1320,8 +1323,7 @@
      * @return {Class} Returns the instance of the Gridster Class.
      */
     fn.hide_widget = function (el, silent, callback) {
-        this.remove_widget(el, silent, callback, true);
-
+        if ($(el).attr('data-ishidden') !== 'true') this.remove_widget(el, silent, callback, true);
         return this;
     };
 
@@ -1353,6 +1355,7 @@
         this.remove_from_gridmap(wgd);
         var finish = $.proxy(function () {
             if (hide) {
+                $el.attr('data-ishidden', true)
                 $el.hide();
             } else {
                 $el.remove();
