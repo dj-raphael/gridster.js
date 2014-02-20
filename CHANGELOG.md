@@ -1,3 +1,80 @@
+<a name="v0.5.0"></a>
+## v0.5.0 (2014-02-14)
+
+
+#### Bug Fixes
+
+* **autogrow:** refining autogrow_cols behavior and grid width issues ([835c2df8](http://github.com/ducksboard/gridster.js/commit/835c2df84419a92b1641b687fcf083f3ff102627))
+* **resize.stop:** Call resize.stop at the latest possible moment ([e21f63a0](http://github.com/ducksboard/gridster.js/commit/e21f63a05a539f5c611eb49cd6861b1e38b36531))
+
+
+#### Features
+
+* **draggable:** Add toggle draggable method. ([073fdc40](http://github.com/ducksboard/gridster.js/commit/073fdc40e0a94dd371646fc54cd420e3ddab0254))
+
+<a name="v0.4.4"></a>
+### v0.4.4 (2014-02-13)
+
+
+#### Features
+
+* **resize:** add start/stop/resize event triggers ([7ca8deec](http://github.com/ducksboard/gridster.js/commit/7ca8deec8559d950097a6dc351cb0c6fcef3458d))
+
+<a name="v0.4.3"></a>
+### v0.4.3 (2014-02-11)
+
+
+#### Bug Fixes
+
+* **generated-styles:** cleaning cached serializations properly ([f8b04f29](http://github.com/ducksboard/gridster.js/commit/f8b04f298e12e46ca9b07f0bae0abc6b08ed6e18))
+
+<a name="v0.4.2"></a>
+### v0.4.2 (2014-02-07)
+
+
+#### Bug Fixes
+
+* recalculate grid width when adding widgets ([47745978](http://github.com/ducksboard/gridster.js/commit/4774597834300601fc81d5111a31a8c1672c55e1))
+
+<a name="v0.4.1"></a>
+### v0.4.1 (2014-02-07)
+
+#### Bug Fixes
+
+* add resize.min_size option to default config object ([5672edb0](http://github.com/ducksboard/gridster.js/commit/5672edb05e39c6b9ff5e3ca31d68c9e94dfaa617))
+
+<a name="v0.4.0"></a>
+## v0.4.0 (2014-02-07)
+
+
+#### Bug Fixes
+
+* **gridster:**
+  * leaking options with multiple Gridster instances ([07c71097](http://github.com/ducksboard/gridster.js/commit/07c7109771094d98be51d68448a20e1d2987b35d))
+  * resize.axes default option only 'both' ([62988780](http://github.com/ducksboard/gridster.js/commit/6298878077d5db129daa9780939fec5237b82af9))
+* **licenses:** add required copyright message for underscore ([b563c094](http://github.com/ducksboard/gridster.js/commit/b563c094cf0f3a5da2288492f95759ae32e8967c))
+* **readme:** link title jsfiddle -> jsbin, edit 5) of process steps ([0641aa89](http://github.com/ducksboard/gridster.js/commit/0641aa89833ecf9d167f7d8e89ee8bd5b4304248))
+
+
+#### Features
+
+* **draggable:**
+  * method to set drag limits dynamically ([d4482ec1](http://github.com/ducksboard/gridster.js/commit/d4482ec1476f8a0b6fb6cdeb25b7774ef678d81c))
+  * support horizontal scrolling while dragging ([ae4921b7](http://github.com/ducksboard/gridster.js/commit/ae4921b70798944211267cacf8a89e62d0818369))
+* **gridster:** increase grid width when dragging or resizing ([37c4e943](http://github.com/ducksboard/gridster.js/commit/37c4e94358b9392710452b9e7f96454837bf9845))
+* **resize:** add option to set min_size of a widget ([ff511872](http://github.com/ducksboard/gridster.js/commit/ff511872e65992ee89bd2a88d862caaf99733f38))
+
+<a name="v0.3.0"></a>
+## v0.3.0 (2013-11-18)
+
+
+#### Features
+
+* **draggable:**
+  * method to set drag limits dynamically ([d4482ec1](http://github.com/ducksboard/gridster.js/commit/d4482ec1476f8a0b6fb6cdeb25b7774ef678d81c))
+  * support horizontal scrolling while dragging ([ae4921b7](http://github.com/ducksboard/gridster.js/commit/ae4921b70798944211267cacf8a89e62d0818369))
+* **gridster:** increase grid width when dragging or resizing ([b61df653](http://github.com/ducksboard/gridster.js/commit/b61df6535f728970fb8c6f25a208275dbde66550))
+
 <a name="v0.2.1"></a>
 ### v0.2.1 (2013-10-28)
 
